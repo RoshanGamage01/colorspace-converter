@@ -36,5 +36,5 @@ function rgbToHSL(r, g, b){
     }
   }
 
-  return [h, s, l];
+  return [h, Math.round(s*100), ~~(l*100)];
 }
