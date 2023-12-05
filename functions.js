@@ -1,22 +1,17 @@
 function rgbToHSL(r, g, b) {
     (r /= 255), (g /= 255), (b /= 255);
-
     const min = Math.min(r, g, b),
         max = Math.max(r, g, b);
-
     let luminanceRange = max - min;
     let totalLuminance = max + min;
     let _2totalLuminence = 2 - totalLuminance;
-
     let h,
         s,
         l = totalLuminance / 2;
-
     if (min == max) {
         h = s = 0;
     } else {
         s = l > 0.5 ? luminanceRange / _2totalLuminence : luminanceRange / totalLuminance;
-
         if (r == max) {
             h = (g - b) / luminanceRange + (g < b ? 6 : 0);
         }
@@ -26,16 +21,13 @@ function rgbToHSL(r, g, b) {
         else if (b == max) {
             h = ((r - g) / luminanceRange) + 4;
         }
-
         h = Math.round(h * 60, 2);
-
         if (h < 0) {
             h + 360;
         } else {
             h;
         }
     }
-
     return [h, Math.round(s * 100), ~~(l * 100)];
 }
 
@@ -47,7 +39,6 @@ function rgbToCmyk(R, G, B) {
         C = ((1 - R - K) / (1 - K)) * 100,
         M = ((1 - G - K) / (1 - K)) * 100,
         Y = ((1 - B - K) / (1 - K)) * 100
-
     return [~~C, ~~M, ~~Y, ~~(K * 100)];
 }
 
@@ -77,7 +68,6 @@ function hslToRgb(H, S, L) {
     }
 
     let m = L - (chroma / 2)
-
     let R = (R1 + m) * 255,
         G = (G1 + m) * 255,
         B = (B1 + m) * 255
@@ -87,7 +77,6 @@ function hslToRgb(H, S, L) {
 
 function cmykToRgb(C, M, Y, K) {
     (C /= 100), (M /= 100), (Y /= 100), (K /= 100)
-
     let R = Math.round(255 * (1 - C) * (1 - K)),
         G = Math.round(255 * (1 - M) * (1 - K)),
         B = Math.round(255 * (1 - Y) * (1 - K));
